@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:m_expense/screens/AddTrip.dart';
 
 void main() {
@@ -38,7 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddTrip()));
+              MaterialPageRoute(builder: (context) => const AddTrip()))
+              .then((data) {
+            if (data != null) {
+              Fluttertoast.showToast(
+                  msg: "Trip added successfully");
+            }
+          });
         },
         child: const Icon(Icons.add),
       ),

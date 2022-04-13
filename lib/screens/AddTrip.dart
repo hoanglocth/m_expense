@@ -2,6 +2,9 @@ import 'package:m_expense/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../models/TripModel.dart';
+import '../services/TripService.dart';
+
 class AddTrip extends StatefulWidget {
   const AddTrip({Key? key}) : super(key: key);
 
@@ -19,6 +22,7 @@ class _AddTripState extends State<AddTrip> {
   bool _validateName = false;
   bool _validateDestination = false;
   bool _isChecked = false;
+  final _tripService = TripService();
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +171,16 @@ class _AddTripState extends State<AddTrip> {
 
   void showDialogConfirm(BuildContext context) {
     Widget okBtn = TextButton(
-        onPressed: () {
+        onPressed: () async {
+          var _tripModel = TripModel();
+          _tripModel.nameTrip = _tripNameController.text;
+          _tripModel.destinationTrip = _tripDestinationController.text;
+          _tripModel.dateTrip = _tripDateController.text;
+          _tripModel.riskTrip = _tripRiskController.text;
+          _tripModel.descriptionTrip = _tripDescriptionController.text;
+          var _result = await _tripService.saveTrip(_tripModel);
+          if (!mounted) return;
+          Navigator.of(context)..pop()..pop(_result);
         },
         child: const Text('Ok'));
 
