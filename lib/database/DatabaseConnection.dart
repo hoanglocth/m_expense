@@ -1,0 +1,24 @@
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
+class DatabaseConnection {
+  Future<Database> setDatabase() async {
+    var directory = await getApplicationDocumentsDirectory();
+    var path = join(directory.path, 'm_expense_db');
+    var database =
+        await openDatabase(path, version: 1, onCreate: _createDatabase);
+    return database;
+  }
+
+  Future<void> _createDatabase(Database database, int version) async {
+    String sql =
+        "CREATE TABLE trip_table (id_trip INTEGER PRIMARY KEY AUTOINCREMENT"
+        ",name_trip TEXT"
+        ",destination_trip TEXT"
+        ",date_trip TEXT"
+        ", risk_trip TEXT"
+        ", description_trip TEXT);";
+    await database.execute(sql);
+  }
+}
