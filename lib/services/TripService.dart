@@ -12,4 +12,8 @@ class TripService {
   saveTrip(TripModel tripModel) async {
     return await _repository.insertTrip('trip_table', tripModel.tripMap());
   }
+  //Read All Trips from sqlite
+  readAllTrip() async {
+    return await _repository.readTrip('trip_table');
+  }
 }
