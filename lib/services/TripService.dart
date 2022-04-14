@@ -16,4 +16,8 @@ class TripService {
   readAllTrip() async {
     return await _repository.readTrip('trip_table');
   }
+  //Delete Trip by id from sqlite
+  deleteTripById(tripId) async {
+    return await _repository.deleteTripById('trip_table', tripId);
+  }
 }

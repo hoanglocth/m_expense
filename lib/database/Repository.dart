@@ -27,4 +27,9 @@ class Repository {
     var connection = await database;
     return await connection?.query(table);
   }
+  deleteTripById(table, itemId) async {
+    var connection = await database;
+    return await connection
+        ?.rawDelete("delete from $table where id_trip=$itemId");
+  }
 }

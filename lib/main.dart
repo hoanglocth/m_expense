@@ -52,11 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+
   @override
   void initState() {
     getAllTripDetails();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +71,17 @@ class _MyHomePageState extends State<MyHomePage> {
             return Dismissible(
               key: UniqueKey(),
               direction: DismissDirection.endToStart,
-
+              onDismissed: (direction) async {
+                var result =
+                await _tripService.deleteTripById(_tripList[index].idTrip);
+                if (result != null) {
+                  setState(() {
+                    getAllTripDetails();
+                  });
+                  Fluttertoast.showToast(
+                      msg: "Deleted record");
+                }
+              },
               child: ListTile(
                 onTap: () {
                   Navigator.push(
@@ -81,6 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 title: Text(_tripList[index].nameTrip ?? ''),
                 subtitle: Text(_tripList[index].destinationTrip ?? ''),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
             );
           }),
