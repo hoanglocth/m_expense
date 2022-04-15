@@ -32,4 +32,9 @@ class Repository {
     return await connection
         ?.rawDelete("delete from $table where id_trip=$itemId");
   }
+  deleteAllTrip(table) async {
+    var connection = await database;
+    return await connection
+        ?.rawQuery("delete from $table");
+  }
 }

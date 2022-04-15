@@ -64,6 +64,43 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("M-Expense"),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      scrollable: true,
+                      title: const Text("Confirm"),
+                      content:
+                      const Text("Do you want to delete all data?"),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              await _tripService.deleteAllTrip();
+                              if (!mounted) return;
+                              Navigator.pop(context);
+                              setState(() {
+                                getAllTripDetails();
+                              });
+                              Fluttertoast.showToast(
+                                  msg: "Deleted all records");
+                            },
+                            child: const Text("Yes")),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              setState(() {
+                                getAllTripDetails();
+                              });
+                            },
+                            child: const Text("No")),
+                      ],
+                    ));
+              },
+              icon: const Icon(Icons.delete))
+        ],
       ),
       body: ListView.builder(
           itemCount: _tripList.length,

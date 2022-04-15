@@ -20,4 +20,8 @@ class TripService {
   deleteTripById(tripId) async {
     return await _repository.deleteTripById('trip_table', tripId);
   }
+  //Delete All Trips from sqlite
+  deleteAllTrip() async {
+    return await _repository.deleteAllTrip('trip_table');
+  }
 }
