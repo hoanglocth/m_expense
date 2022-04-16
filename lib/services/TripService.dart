@@ -24,4 +24,8 @@ class TripService {
   deleteAllTrip() async {
     return await _repository.deleteAllTrip('trip_table');
   }
+  //Edit Trip
+  updateTrip(TripModel tripModel) async {
+    return await _repository.updateTrip('trip_table', tripModel.tripMap());
+  }
 }

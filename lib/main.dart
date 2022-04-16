@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:m_expense/screens/AddTrip.dart';
+import 'package:m_expense/screens/EditTrip.dart';
 import 'package:m_expense/screens/ViewTrip.dart';
 import 'package:m_expense/services/TripService.dart';
 import 'models/TripModel.dart';
@@ -132,6 +133,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 subtitle: Text(_tripList[index].destinationTrip ?? ''),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditTrip(
+                                    tripModel: _tripList[index],
+                                  ))).then((data) {
+                            if (data != null) {
+                              getAllTripDetails();
+                              Fluttertoast.showToast(
+                                  msg: "Trip updated successfully");
+                            }
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.teal,
+                        )),
+                  ],
                 ),
               ),
             );

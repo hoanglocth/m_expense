@@ -37,4 +37,9 @@ class Repository {
     return await connection
         ?.rawQuery("delete from $table");
   }
+  updateTrip(table, data) async {
+    var connection = await database;
+    return await connection
+        ?.update(table, data, where: 'id_trip=?', whereArgs: [data['id_trip']]);
+  }
 }
