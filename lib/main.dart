@@ -164,6 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
               MaterialPageRoute(builder: (context) => const AddTrip()))
               .then((data) {
             if (data != null) {
+              setState(() {
+                getAllTripDetails();
+              });
               Fluttertoast.showToast(
                   msg: "Trip added successfully");
             }
